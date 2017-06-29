@@ -15,8 +15,6 @@ module.exports = {
 
 var commands = {
     validate: helpValidate,
-    compile: helpCompile,
-    migrate: helpMigrate,
     test: helpTest
 };
 
@@ -43,27 +41,21 @@ function execute(argv) {
 function usage() {
     console.error('\
 usage:\n\
-    validate:  ajv [validate] -s schema[.json] -d data[.json]\n\
-    compile:   ajv compile -s schema[.json]\n\
-    migrate:   ajv migrate -s schema[.json] -o migrated_schema.json\n\
-    test:      ajv test -s schema[.json] -d data[.json] --[in]valid\n\
+    validate:  pajv [validate] -s schema_file -d data_file\n\
+    test:      pajv test -s schema_file -d data_file --[in]valid\n\
 \n\
-    help:      ajv help\n\
-               ajv help <command>');
+    help:      pajv help\n\
+               pajv help <command>');
 }
 
 
 function mainHelp() {
     _helpValidate();
-    _helpCompile();
-    _helpMigrate();
     _helpTest();
     console.log('\
 More information:\n\
-        ajv help validate\n\
-        ajv help compile\n\
-        ajv help migrate\n\
-        ajv help test');
+        pajv help validate\n\
+        pajv help test');
 }
 
 
@@ -81,7 +73,6 @@ parameters\n\
     glob should be enclosed in double quotes\n\
     -c module(s) should export a function that accepts Ajv instance as parameter\n\
     (file path should start with ".", otherwise used as require package)\n\
-    .json extension can be omitted (but should be used in globs)\n\
 \n\
 options:\n\
     --errors=          error reporting format ("js" by deafult)\n\
@@ -98,65 +89,9 @@ options:\n\
 function _helpValidate() {
     console.log('\
 Validate data file(s) against schema\n\
-    ajv [validate] -s schema[.json] -d data[.json]\n\
-    ajv [validate] -s schema[.json] -d "data*.json"\n');
+    ajv [validate] -s schema_file -d data_file\n\
+    ajv [validate] -s schema_file -d "data*.ext"\n');
 }
-
-
-function helpCompile() {
-    _helpCompile();
-    console.log('\
-parameters\n\
-    -s JSON schema to validate against (required)\n\
-    -r referenced schema(s)\n\
-    -m meta schema(s)\n\
-    -c custom keywords/formats definitions\n\
-    -o output file for compiled validation function\n\
-\n\
-    -s, -r, -m, -c can be globs and can be used multiple times\n\
-    If option -o is used only one schema can be compiled\n\
-    glob should be enclosed in double quotes\n\
-    -c module(s) should export a function that accepts Ajv instance as parameter\n\
-    (file path should start with ".", otherwise used as require package)\n\
-    .json extension can be omitted (but should be used in globs)\n');
-    helpAjvOptions();
-}
-
-
-function _helpCompile() {
-    console.log('\
-Compile schema(s)\n\
-    ajv compile -s schema[.json]\n\
-    ajv compile -s "schema*.json"\n');
-}
-
-
-function helpMigrate() {
-    _helpMigrate();
-    console.log('\
-parameters\n\
-    -s JSON schema(s) to migrate to draft-06 (required)\n\
-    -o output file for migrated schema (only allowed for a single schema)\n\
-\n\
-    -s can be glob and can be used multiple times\n\
-    If option -o is used only one schema can be migrated\n\
-    glob should be enclosed in double quotes\n\
-    .json extension can be omitted (but should be used in globs)\n\
-\n\
-options:\n\
-    --v5                    migrate schema as v5 if $schema is not specified\n\
-    --indent=<N>            indentation in migrated schema JSON file, 4 by default\n\
-    --validate-schema=false skip schema validation\n');
-}
-
-
-function _helpMigrate() {
-    console.log('\
-Migrate schema(s) to draft-06\n\
-    ajv migrate -s schema[.json] -o migrated_schema.json\n\
-    ajv migrate -s "schema*.json"\n');
-}
-
 
 function helpTest() {
     _helpTest();
@@ -173,7 +108,6 @@ parameters\n\
     glob should be enclosed in double quotes\n\
     -c module(s) should export a function that accepts Ajv instance as parameter\n\
     (file path should start with ".", otherwise used as require package)\n\
-    .json extension can be omitted (but should be used in globs)\n\
     --valid=false can be used instead of --invalid\n\
 \n\
 options:\n\
@@ -189,9 +123,9 @@ options:\n\
 function _helpTest() {
     console.log('\
 Test data validation result\n\
-    ajv test -s schema[.json] -d data[.json] --valid\n\
-    ajv test -s schema[.json] -d data[.json] --invalid\n\
-    ajv test -s schema[.json] -d "data*.json" --valid \n');
+    ajv test -s schema_file -d data_file --valid\n\
+    ajv test -s schema_file -d data_file --invalid\n\
+    ajv test -s schema_file -d "data*.ext" --valid \n');
 }
 
 

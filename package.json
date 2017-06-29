@@ -1,7 +1,8 @@
 {
-  "name": "ajv-cli",
-  "version": "2.1.0",
-  "description": "A command line interface for epoberezkin/ajv JSON schema validator",
+  "name": "pajv",
+  "displayName": "Polyglottal JSON Schema Validator",
+  "version": "1.0.0",
+  "description": " A command line JSON Schema validator that supports many file formats. Fork of jessedc/ajv-cli.",
   "scripts": {
     "eslint": "eslint index.js commands/*.js test/*.js test/**/*.js",
     "test-spec": "mocha test/*.spec.js -R spec",
@@ -20,22 +21,27 @@
     "cache": true
   },
   "bin": {
-    "ajv": "index.js"
+    "pajv": "index.js"
   },
   "preferGlobal": true,
-  "author": "Jesse Collis <jesse@jcmultimedia.com.au>",
+  "author": "Adam Voss",
+  "contributors": [
+    {
+      "name": "Jesse Collis",
+      "email": "jesse@jcmultimedia.com.au"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jessedc/ajv-cli"
+    "url": "https://github.com/json-schema-everywhere/pajv"
   },
   "dependencies": {
     "ajv": "^5.0.0",
-    "ajv-pack": "^0.3.0",
     "fast-json-patch": "^0.5.6",
     "glob": "^7.0.3",
-    "json-schema-migrate": "^0.2.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "util.promisify": "^1.0.0"
   },
   "devDependencies": {
     "ajv-keywords": "^2.0.0",

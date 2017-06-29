@@ -11,7 +11,7 @@ describe('help', function() {
     cli('help', function (error, stdout, stderr) {
       assert.strictEqual(error, null);
       assert(/Validate/.test(stdout));
-      assert(/Compile/.test(stdout));
+      assert(/Test/.test(stdout));
       assert.equal(stderr, '');
       done();
     });
@@ -21,26 +21,6 @@ describe('help', function() {
     cli('help validate', function (error, stdout, stderr) {
       assert.strictEqual(error, null);
       assert(/Validate/.test(stdout));
-      assert(/options/.test(stdout));
-      assert.equal(stderr, '');
-      done();
-    });
-  });
-
-  it('should print help for compile', function (done) {
-    cli('help compile', function (error, stdout, stderr) {
-      assert.strictEqual(error, null);
-      assert(/Compile/.test(stdout));
-      assert(/options/.test(stdout));
-      assert.equal(stderr, '');
-      done();
-    });
-  });
-
-  it('should print help for migrate', function (done) {
-    cli('help migrate', function (error, stdout, stderr) {
-      assert.strictEqual(error, null);
-      assert(/Migrate/.test(stdout));
       assert(/options/.test(stdout));
       assert.equal(stderr, '');
       done();

@@ -1,12 +1,11 @@
-# ajv-cli
+# Polyglottal [Another] JSON Schema Validator
 
-Command line interface for [ajv](https://github.com/epoberezkin/ajv), one of the [fastest json schema validators](https://github.com/ebdrup/json-schema-benchmark).
+Command line interface for [ajv](https://github.com/epoberezkin/ajv) that utilizes [any-json](https://github.com/laktak/any-json/) to provide validation against many data formats.
 
-[![Build Status](https://travis-ci.org/jessedc/ajv-cli.svg?branch=master)](https://travis-ci.org/jessedc/ajv-cli)
-[![npm version](https://badge.fury.io/js/ajv-cli.svg)](https://www.npmjs.com/package/ajv-cli)
-[![Code Climate](https://codeclimate.com/github/epoberezkin/ajv-cli/badges/gpa.svg)](https://codeclimate.com/github/epoberezkin/ajv-cli)
-[![Coverage Status](https://coveralls.io/repos/github/jessedc/ajv-cli/badge.svg?branch=master)](https://coveralls.io/github/jessedc/ajv-cli?branch=master)
-
+[![Build Status](https://travis-ci.org/json-schema-everywhere/pajv.svg?branch=master)](https://travis-ci.org/json-schema-everywhere/pajv)
+[![npm version](https://badge.fury.io/js/pajv.svg)](https://www.npmjs.com/package/pajv)
+[![Code Climate](https://codeclimate.com/github/json-schema-everywhere/pajv/badges/gpa.svg)](https://codeclimate.com/github/json-schema-everywhere/pajv)
+[![Coverage Status](https://coveralls.io/repos/github/json-schema-everywhere/pajv/badge.svg?branch=master)](https://coveralls.io/github/json-schema-everywhere/pajv?branch=master)
 
 ## Contents
 
@@ -14,7 +13,6 @@ Command line interface for [ajv](https://github.com/epoberezkin/ajv), one of the
 - Commands
   - [Help](#help)
   - [Validate data](#validate-data)
-  - [Migrate schema(s) to draft-06](#migrate-schemas-to-draft-06)
   - [Test validation result](#test-validation-result)
 - [Ajv options](#ajv-options)
 - [Version History, License](#version_history)
@@ -23,18 +21,16 @@ Command line interface for [ajv](https://github.com/epoberezkin/ajv), one of the
 ## Installation
 
 ```sh
-npm install -g ajv-cli
+npm install -g pajv
 ```
 
 
 ## Help
 
 ```sh
-ajv help
-ajv help validate
-ajv help compile
-ajv help migrate
-ajv help test
+pajv help
+pajv help validate
+pajv help test
 ```
 
 
@@ -43,8 +39,8 @@ ajv help test
 This command validates data files against JSON-schema
 
 ```sh
-ajv validate -s test/schema.json -d test/valid_data.json
-ajv -s test/schema.json -d test/valid_data.json
+pajv validate -s test/schema.json -d test/valid_data.json
+pajv -s test/schema.json -d test/valid_data.json
 ```
 
 You can omit `validate` command name and `.json` from the [input file names](https://nodejs.org/api/modules.html#modules_file_modules). 
@@ -62,7 +58,7 @@ Only one schema can be passed in this parameter
 Multiple data files can be passed, as in `-r` parameter:
 
 ```sh
-ajv -s test/schema.json -d "test/valid*.json"
+pajv -s test/schema.json -d "test/valid*.json"
 ```
 
 If some file is invalid exit code will be 1.
@@ -103,90 +99,13 @@ For example, you can use `-c ajv-keywords` to add all keywords from [ajv-keyword
     Possible values are `js` (default), `json` and `line` (see `--errors` option).
 
 
-## Compile schemas
-
-This command validates and compiles schema without validating any data.
-
-It can be used to check that the schema is valid and to create a standalone module exporting validation function (using [ajv-pack](https://github.com/epoberezkin/ajv-pack)).
-
-```sh
-ajv compile -s schema
-
-# compile to module (BETA)
-ajv compile -s schema -o validate.js
-```
-
-#### Parameters
-
-##### `-s` - file name(s) of JSON-schema(s)
-
-Multiple schemas can be passed both by using this parameter mupltiple times and with [glob patterns](https://github.com/isaacs/node-glob#glob-primer).
-
-```sh
-ajv compile -s "test/schema*.json"
-```
-
-
-##### `-o` - output file for compiled validation function module (BETA)
-
-Only a single schema can be compiled with this option.
-
-```sh
-ajv compile -s "schema.json" -o "validate_schema.js"
-```
-
-This command also supports parameters `-r`, `-m` and `-c` as in [validate](#validate-data) command.
-
-
-## Migrate schema(s) to draft-06
-
-This command validates and migrates schema to draft-06 using [json-schema-migrate](https://github.com/epoberezkin/json-schema-migrate) package.
-
-
-```sh
-ajv migrate -s schema
-
-# compile to specific file name
-ajv migrate -s schema -o migrated_schema.json
-```
-
-#### Parameters
-
-##### `-s` - file name(s) of JSON-schema(s)
-
-Multiple schemas can be passed both by using this parameter mupltiple times and with [glob patterns](https://github.com/isaacs/node-glob#glob-primer).
-
-```sh
-ajv migrate -s "test/schema*.json"
-```
-
-If parameter `-o` is not specified the migrated schema is written to the same file and the original file is preserved with `.bak` extension.
-
-If migration doesn't change anything in the schema file no changes in files are made.
-
-
-##### `-o` - output file for migrated schema
-
-Only a single schema can be migrated with this option.
-
-```sh
-ajv compile -s "schema.json" -o migrated_schema.json
-```
-
-#### Options
-
-- `v5`: migrate schema as v5 if $schema is not specified
-- `--indent=`: indentation in migrated schema JSON file, 4 by default
-- `--validate-schema=false`: skip schema validation
-
-
 ## Test validation result
 
 This command asserts that the result of the validation is as expected.
 
 ```sh
-ajv test -s test/schema.json -d test/valid_data.json --valid
-ajv test -s test/schema.json -d test/invalid_data.json --invalid
+pajv test -s test/schema.json -d test/valid_data.json --valid
+pajv test -s test/schema.json -d test/invalid_data.json --invalid
 ```
 
 If the option `--valid` (`--invalid`) is used for the `test` to pass (exit code 0) the data file(s) should be valid (invalid).
@@ -196,7 +115,7 @@ This command supports the same options and parameters as [validate](#validate-da
 
 ## Ajv options
 
-You can pass the following Ajv options (excluding `migrate` command):
+You can pass the following Ajv options:
 
 |Option|Description|
 |---|---|
@@ -226,7 +145,7 @@ See [Ajv Options](https://github.com/epoberezkin/ajv#options) for more informati
 
 ## Version History
 
-See https://github.com/jessedc/ajv-cli/releases
+See https://github.com/json-schema-everywhere/pajv/releases
 
 
 ## Licence
