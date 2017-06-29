@@ -9,7 +9,7 @@ describe('test', function() {
 
   describe('test valid data', function() {
     it('should pass if expected result is valid', function (done) {
-      cli('test -s test/schema -d test/valid_data --valid', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/valid_data.json --valid', function (error, stdout, stderr) {
         assert.strictEqual(error, null);
         assertNoErrors(stdout, 1, /\spassed/);
         assert.equal(stderr, '');
@@ -18,7 +18,7 @@ describe('test', function() {
     });
 
     it('should pass multiple files if expected result is valid', function (done) {
-      cli('test -s test/schema -d "test/valid*.json" --valid', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d "test/valid*.json" --valid', function (error, stdout, stderr) {
         assert.strictEqual(error, null);
         assertNoErrors(stdout, 2, /\spassed/);
         assert.equal(stderr, '');
@@ -27,7 +27,7 @@ describe('test', function() {
     });
 
     it('should fail if expected result is invalid', function (done) {
-      cli('test -s test/schema -d test/valid_data --invalid', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/valid_data.json --invalid', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertNoErrors(stderr, 1, /\sfailed/);
         assert.equal(stdout, '');
@@ -36,7 +36,7 @@ describe('test', function() {
     });
 
     it('should fail multiple files if expected result is invalid', function (done) {
-      cli('test -s test/schema -d "test/valid*.json" --invalid', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d "test/valid*.json" --invalid', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertNoErrors(stderr, 2, /\sfailed/);
         assert.equal(stdout, '');
@@ -48,7 +48,7 @@ describe('test', function() {
 
   describe('test invalid data', function() {
     it('should pass if expected result is invalid', function (done) {
-      cli('test -s test/schema -d test/invalid_data --invalid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/invalid_data.json --invalid --errors=line', function (error, stdout, stderr) {
         assert.strictEqual(error, null);
         assertRequiredErrors(stdout, 1, /\spassed/);
         assert.equal(stderr, '');
@@ -57,7 +57,7 @@ describe('test', function() {
     });
 
     it('should pass if expected result is invalid (valid=false)', function (done) {
-      cli('test -s test/schema -d test/invalid_data --valid=false --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/invalid_data.json --valid=false --errors=line', function (error, stdout, stderr) {
         assert.strictEqual(error, null);
         assertRequiredErrors(stdout, 1, /\spassed/);
         assert.equal(stderr, '');
@@ -67,7 +67,7 @@ describe('test', function() {
 
 
     it('should pass multiple files if expected result is invalid', function (done) {
-      cli('test -s test/schema -d "test/invalid*.json" --invalid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d "test/invalid*.json" --invalid --errors=line', function (error, stdout, stderr) {
         assert.strictEqual(error, null);
         assertRequiredErrors(stdout, 2, /\spassed/);
         assert.equal(stderr, '');
@@ -76,7 +76,7 @@ describe('test', function() {
     });
 
     it('should fail if expected result is valid', function (done) {
-      cli('test -s test/schema -d test/invalid_data --valid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/invalid_data.json --valid --errors=line', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertRequiredErrors(stderr, 1, /\sfailed/);
         assert.equal(stdout, '');
@@ -85,7 +85,7 @@ describe('test', function() {
     });
 
     it('should fail multiple files if expected result is valid', function (done) {
-      cli('test -s test/schema -d "test/invalid*.json" --valid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d "test/invalid*.json" --valid --errors=line', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertRequiredErrors(stderr, 2, /\sfailed/);
         assert.equal(stdout, '');
@@ -97,7 +97,7 @@ describe('test', function() {
 
   describe('test valid and invalid data', function() {
     it('should pass valid, fail invalid and return error if expected result is valid', function (done) {
-      cli('test -s test/schema -d test/valid_data -d test/invalid_data --valid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/valid_data.json -d test/invalid_data.json --valid --errors=line', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertNoErrors(stdout, 1, /\spassed/);
         assertRequiredErrors(stderr, 1, /\sfailed/);
@@ -106,7 +106,7 @@ describe('test', function() {
     });
 
     it('should fail valid, pass invalid and return error if expected result is invalid', function (done) {
-      cli('test -s test/schema -d test/valid_data -d test/invalid_data --invalid --errors=line', function (error, stdout, stderr) {
+      cli('test -s test/schema.json -d test/valid_data.json -d test/invalid_data.json --invalid --errors=line', function (error, stdout, stderr) {
         assert(error instanceof Error);
         assertNoErrors(stderr, 1, /\sfailed/);
         assertRequiredErrors(stdout, 1, /\spassed/);

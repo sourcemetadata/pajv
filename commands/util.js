@@ -1,5 +1,6 @@
 'use strict';
 
+var anyjson = require('any-json');
 var glob = require('glob');
 var path = require('path');
 var fs = require('fs');
@@ -31,19 +32,14 @@ function getFiles(args) {
 
 
 function openFile(filename, suffix){
-    var json = null;
     var file = path.resolve(process.cwd(), filename);
     try {
-        try {
-            json = JSON.parse(fs.readFileSync(file).toString());
-        } catch(JSONerr) {
-            json = require(file);
-        }
+        var contents = fs.readFileSync(file).toString();
+        return anyjson.convert(contents, path.extname(filename));
     } catch(err) {
         console.error('error:  ' + err.message.replace(' module', ' ' + suffix));
         process.exit(2);
     }
-    return json;
 }
 
 

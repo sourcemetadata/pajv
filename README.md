@@ -1,6 +1,6 @@
 # Polyglottal [Another] JSON Schema Validator
 
-Command line interface for [ajv](https://github.com/epoberezkin/ajv) that utilizes [any-json](https://github.com/laktak/any-json/) to provide validation against many data formats.
+Command line interface for [ajv](https://github.com/epoberezkin/ajv) that utilizes [any-json](https://github.com/laktak/any-json/) to provide validation against many data formats. `pjsv` can validate: **[CSON](https://github.com/bevry/cson), [Hjson](http://hjson.org/), [JSON](http://json.org/), [JSON5](http://json5.org/), and [YAML](http://yaml.org/)** files using JSON Schema.  pjsv is a fork of [ajv-cli](https://github.com/jessedc/ajv-cli).
 
 [![Build Status](https://travis-ci.org/json-schema-everywhere/pajv.svg?branch=master)](https://travis-ci.org/json-schema-everywhere/pajv)
 [![npm version](https://badge.fury.io/js/pajv.svg)](https://www.npmjs.com/package/pajv)
