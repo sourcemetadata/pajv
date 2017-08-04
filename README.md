@@ -1,6 +1,6 @@
 # Polyglottal JSON Schema Validator (Polyglottal Ajv)
 
-Command line interface for [ajv](https://github.com/epoberezkin/ajv) that utilizes [any-json](https://github.com/laktak/any-json/) to provide validation against many data formats. `pajv` can validate: **[CSON](https://github.com/bevry/cson), [Hjson](http://hjson.org/), [JSON](http://json.org/), [JSON5](http://json5.org/), and [YAML](http://yaml.org/)** files using JSON Schema.  pajv is a fork of [ajv-cli](https://github.com/jessedc/ajv-cli).
+Command line interface for [ajv](https://github.com/epoberezkin/ajv) that utilizes [any-json](https://github.com/laktak/any-json/) to provide validation against many data formats. `pajv` can validate: **[CSON](https://github.com/bevry/cson), [Hjson](http://hjson.org/), [JSON](http://json.org/), [JSON5](http://json5.org/), [TOML](https://github.com/toml-lang/toml), and [YAML](http://yaml.org/)** files using JSON Schema.  pajv is a fork of [ajv-cli](https://github.com/jessedc/ajv-cli).
 
 [![Build Status](https://travis-ci.org/json-schema-everywhere/pajv.svg?branch=master)](https://travis-ci.org/json-schema-everywhere/pajv)
 [![npm version](https://badge.fury.io/js/pajv.svg)](https://www.npmjs.com/package/pajv)
@@ -43,7 +43,7 @@ pajv validate -s test/schema.json -d test/valid_data.json
 pajv -s test/schema.json -d test/valid_data.json
 ```
 
-You can omit `validate` command name and `.json` from the [input file names](https://nodejs.org/api/modules.html#modules_file_modules). 
+You can omit `validate` command name.
 
 
 #### Parameters

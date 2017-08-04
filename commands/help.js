@@ -89,8 +89,8 @@ options:\n\
 function _helpValidate() {
     console.log('\
 Validate data file(s) against schema\n\
-    ajv [validate] -s schema_file -d data_file\n\
-    ajv [validate] -s schema_file -d "data*.ext"\n');
+    pajv [validate] -s schema_file -d data_file\n\
+    pajv [validate] -s schema_file -d "data*.ext"\n');
 }
 
 function helpTest() {
@@ -123,9 +123,9 @@ options:\n\
 function _helpTest() {
     console.log('\
 Test data validation result\n\
-    ajv test -s schema_file -d data_file --valid\n\
-    ajv test -s schema_file -d data_file --invalid\n\
-    ajv test -s schema_file -d "data*.ext" --valid \n');
+    pajv test -s schema_file -d data_file --valid\n\
+    pajv test -s schema_file -d data_file --invalid\n\
+    pajv test -s schema_file -d "data*.ext" --valid \n');
 }
 
 
