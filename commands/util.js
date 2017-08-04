@@ -4,6 +4,7 @@ var anyjson = require('any-json');
 var glob = require('glob');
 var path = require('path');
 var fs = require('fs');
+var wait = require('deasync-promise');
 
 
 module.exports = {
@@ -35,7 +36,8 @@ function openFile(filename, suffix){
     var file = path.resolve(process.cwd(), filename);
     try {
         var contents = fs.readFileSync(file).toString();
-        return anyjson.convert(contents, path.extname(filename));
+        var format = path.extname(filename).substr(1).toLowerCase();
+        return wait(anyjson.decode(contents, format));
     } catch(err) {
         console.error('error:  ' + err.message.replace(' module', ' ' + suffix));
         process.exit(2);
