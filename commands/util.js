@@ -31,12 +31,17 @@ function getFiles(args) {
     }
 }
 
+function getFormatFromFileName(filename) {
+    var format = path.extname(filename).substr(1).toLowerCase();
+    return format === 'yml' ? 'yaml' : format;
+}
+
 
 function openFile(filename, suffix){
     var file = path.resolve(process.cwd(), filename);
     try {
         var contents = fs.readFileSync(file).toString();
-        var format = path.extname(filename).substr(1).toLowerCase();
+        var format = getFormatFromFileName(filename);
         return wait(anyjson.decode(contents, format));
     } catch(err) {
         console.error('error:  ' + err.message.replace(' module', ' ' + suffix));
